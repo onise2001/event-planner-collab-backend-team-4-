@@ -1,0 +1,36 @@
+services:
+  team-4-db:
+    image: postgres:13
+
+    env_file:
+      - .env
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+    networks:
+      - shared
+
+  event-team-4-web:
+    build: .
+    command: gunicorn --config gunicorn_config.py event_planner.wsgi:application
+    volumes:
+      - .:/app
+
+    env_file:
+      - .env
+
+    expose:
+      - 8004
+
+    depends_on:
+      - team-4-db
+    networks:
+      - shared
+
+networks:
+  shared:
+    external: true
+
+volumes: 
+  postgres_data:
