@@ -39,7 +39,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
 
           script: |
-            cd event-planner-collab-team-4-backend
+            cd event-planner-collab-backend-team-4-
             docker compose down
             git pull origin main
             docker compose up --detach
